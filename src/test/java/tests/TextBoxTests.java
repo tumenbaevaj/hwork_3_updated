@@ -9,7 +9,7 @@ public class TextBoxTests extends TestBase {
 
     @Test
     void successfulFillFormTest() {
-        open("https://demoqa.com/text-box");
+        open("/text-box");
 
         executeJavaScript("""
             document.getElementById('fixedban')?.remove();
