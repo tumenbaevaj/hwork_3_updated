@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Condition.cssClass;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -10,11 +11,10 @@ public class TextBoxTests extends TestBase {
     @Test
     void successfulFillFormTest() {
         open("/text-box");
-
         executeJavaScript("""
-            document.getElementById('fixedban')?.remove();
-            document.querySelector('footer')?.remove();
-        """);
+                    document.getElementById('fixedban')?.remove();
+                    document.querySelector('footer')?.remove();
+                """);
 
         $("#userName").setValue("John Smith");
         $("#userEmail").setValue("johnsmith@gmail.com");
@@ -26,5 +26,34 @@ public class TextBoxTests extends TestBase {
         $("#output #email").shouldHave(text("johnsmith@gmail.com"));
         $("#output #currentAddress").shouldHave(text("66 Karalaev street, Bishkek, KG"));
         $("#output #permanentAddress").shouldHave(text("3 Matrosov street, Bishkek, KG"));
+    }
+
+    @Test
+    void successfulMinimalFieldsTest() {
+        open("/text-box");
+        executeJavaScript("""
+                    document.getElementById('fixedban')?.remove();
+                    document.querySelector('footer')?.remove();
+                """);
+
+        $("#userName").setValue("John Smith");
+        $("#submit").click();
+
+        $("#output #name").shouldHave(text("John Smith"));
+    }
+
+    @Test
+    void invalidEmailTest() {
+        open("/text-box");
+        executeJavaScript("""
+                    document.getElementById('fixedban')?.remove();
+                    document.querySelector('footer')?.remove();
+                """);
+
+        $("#userName").setValue("John Smith");
+        $("#userEmail").setValue("invalid");
+        $("#submit").click();
+
+        $("#userEmail").shouldHave(cssClass("field-error"));
     }
 }
