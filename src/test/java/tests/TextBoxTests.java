@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Condition.cssClass;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
+import static testdata.TestData.*;
 
 public class TextBoxTests extends TestBase {
 
@@ -16,16 +17,16 @@ public class TextBoxTests extends TestBase {
                     document.querySelector('footer')?.remove();
                 """);
 
-        $("#userName").setValue("John Smith");
-        $("#userEmail").setValue("johnsmith@gmail.com");
-        $("#currentAddress").setValue("66 Karalaev street, Bishkek, KG");
-        $("#permanentAddress").setValue("3 Matrosov street, Bishkek, KG");
+        $("#userName").setValue(userName);
+        $("#userEmail").setValue(userEmail);
+        $("#currentAddress").setValue(currentAddress);
+        $("#permanentAddress").setValue(permanentAddress);
         $("#submit").click();
 
-        $("#output #name").shouldHave(text("John Smith"));
-        $("#output #email").shouldHave(text("johnsmith@gmail.com"));
-        $("#output #currentAddress").shouldHave(text("66 Karalaev street, Bishkek, KG"));
-        $("#output #permanentAddress").shouldHave(text("3 Matrosov street, Bishkek, KG"));
+        $("#output #name").shouldHave(text(userName));
+        $("#output #email").shouldHave(text(userEmail));
+        $("#output #currentAddress").shouldHave(text(currentAddress));
+        $("#output #permanentAddress").shouldHave(text(permanentAddress));
     }
 
     @Test
@@ -36,10 +37,10 @@ public class TextBoxTests extends TestBase {
                     document.querySelector('footer')?.remove();
                 """);
 
-        $("#userName").setValue("John Smith");
+        $("#userName").setValue(userName);
         $("#submit").click();
 
-        $("#output #name").shouldHave(text("John Smith"));
+        $("#output #name").shouldHave(text(userName));
     }
 
     @Test
@@ -50,7 +51,7 @@ public class TextBoxTests extends TestBase {
                     document.querySelector('footer')?.remove();
                 """);
 
-        $("#userName").setValue("John Smith");
+        $("#userName").setValue(userName);
         $("#userEmail").setValue("invalid");
         $("#submit").click();
 

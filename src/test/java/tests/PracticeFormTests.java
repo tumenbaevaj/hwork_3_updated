@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static testdata.TestData.*;
 
 public class PracticeFormTests extends TestBase {
 
@@ -17,47 +18,37 @@ public class PracticeFormTests extends TestBase {
                     document.querySelector('footer')?.remove();
                 """);
 
-        $("#firstName").setValue("Jibek");
-        $("#lastName").setValue("Tumenbaeva");
-        $("#userEmail").setValue("jibekt@gmail.com");
-        $("#genterWrapper").$(byText("Female")).click();
-        $("#userNumber").setValue("5556676677");
+        $("#firstName").setValue(firstName);
+        $("#lastName").setValue(lastName);
+        $("#userEmail").setValue(email);
+        $("#genterWrapper").$(byText(genderFemale)).click();
+        $("#userNumber").setValue(mobileNumber);
         $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption("June");
-        $(".react-datepicker__year-select").selectOption("1988");
-        $(".react-datepicker__day--026:not(.react-datepicker__day--outside-month)").click();
-        $("#subjectsInput").setValue("Accounting").pressEnter();
-        $("#hobbiesWrapper").$(byText("Sports")).click();
-        $("#uploadPicture").uploadFromClasspath("img.jpg");
-        $("#currentAddress").setValue("Bishkek, Kyrgyzstan");
+        $(".react-datepicker__month-select").selectOption(monthOfBirth);
+        $(".react-datepicker__year-select").selectOption(yearOfBirth);
+        $(".react-datepicker__day--0" + dayOfBirth + ":not(.react-datepicker__day--outside-month)").click();
+        $("#subjectsInput").setValue(subjectMath).pressEnter();
+        $("#hobbiesWrapper").$(byText(hobbieSports)).click();
+        $("#uploadPicture").uploadFromClasspath(uploadImage);
+        $("#currentAddress").setValue(currentAddress);
         $("#state").click();
-        $("#stateCity-wrapper").$(byText("NCR")).click();
+        $("#stateCity-wrapper").$(byText(state)).click();
         $("#city").click();
-        $("#stateCity-wrapper").$(byText("Delhi")).click();
+        $("#stateCity-wrapper").$(byText(city)).click();
         $("#submit").click();
 
         $(".modal-dialog").shouldHave(appear);
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(text("Jibek"));
-        $(".table-responsive").shouldHave(text("Female"));
-        $(".table-responsive").shouldHave(text("5556676677"));
-        $(".table-responsive").shouldHave(text("26 June,1988"));
-        $(".table-responsive").shouldHave(text("Accounting"));
-        $(".table-responsive").shouldHave(text("Sports"));
-        $(".table-responsive").shouldHave(text("img.jpg"));
-        $(".table-responsive").shouldHave(text("Bishkek, Kyrgyzstan"));
-
-        $(".modal-dialog").shouldHave(appear);
-        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(text("Jibek Tumenbaeva"));
-        $(".table-responsive").shouldHave(text("Female"));
-        $(".table-responsive").shouldHave(text("5556676677"));
-        $(".table-responsive").shouldHave(text("26 June,1988"));
-        $(".table-responsive").shouldHave(text("Accounting"));
-        $(".table-responsive").shouldHave(text("Sports"));
-        $(".table-responsive").shouldHave(text("img.jpg"));
-        $(".table-responsive").shouldHave(text("Bishkek, Kyrgyzstan"));
-        $(".table-responsive").shouldHave(text("NCR Delhi"));
+        $(".table-responsive").shouldHave(text(firstName + " " + lastName));
+        $(".table-responsive").shouldHave(text(email));
+        $(".table-responsive").shouldHave(text(genderFemale));
+        $(".table-responsive").shouldHave(text(mobileNumber));
+        $(".table-responsive").shouldHave(text(dayOfBirth + " " + monthOfBirth + "," + yearOfBirth));
+        $(".table-responsive").shouldHave(text(subjectMath));
+        $(".table-responsive").shouldHave(text(hobbieSports));
+        $(".table-responsive").shouldHave(text(uploadImage));
+        $(".table-responsive").shouldHave(text(currentAddress));
+        $(".table-responsive").shouldHave(text(state + " " + city));
     }
 
     @Test
@@ -69,17 +60,17 @@ public class PracticeFormTests extends TestBase {
                     document.querySelector('footer')?.remove();
                 """);
 
-        $("#firstName").setValue("Jibek");
-        $("#lastName").setValue("Tumenbaeva");
-        $("#genterWrapper").$(byText("Female")).click();
-        $("#userNumber").setValue("5556676677");
+        $("#firstName").setValue(firstName);
+        $("#lastName").setValue(lastName);
+        $("#genterWrapper").$(byText(genderFemale)).click();
+        $("#userNumber").setValue(mobileNumber);
         $("#submit").click();
 
         $(".modal-dialog").shouldHave(appear);
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(text("Jibek Tumenbaeva"));
-        $(".table-responsive").shouldHave(text("Female"));
-        $(".table-responsive").shouldHave(text("5556676677"));
+        $(".table-responsive").shouldHave(text(firstName + " " + lastName));
+        $(".table-responsive").shouldHave(text(genderFemale));
+        $(".table-responsive").shouldHave(text(mobileNumber));
     }
 
     @Test
@@ -105,9 +96,9 @@ public class PracticeFormTests extends TestBase {
                     document.querySelector('footer')?.remove();
                 """);
 
-        $("#lastName").setValue("Tumenbaeva");
-        $("#genterWrapper").$(byText("Female")).click();
-        $("#userNumber").setValue("5556676677");
+        $("#lastName").setValue(lastName);
+        $("#genterWrapper").$(byText(genderFemale)).click();
+        $("#userNumber").setValue(mobileNumber);
         $("#submit").click();
 
         $(".modal-dialog").shouldNot(exist);
@@ -122,9 +113,9 @@ public class PracticeFormTests extends TestBase {
                     document.querySelector('footer')?.remove();
                 """);
 
-        $("#firstName").setValue("Jibek");
-        $("#lastName").setValue("Tumenbaeva");
-        $("#genterWrapper").$(byText("Female")).click();
+        $("#firstName").setValue(firstName);
+        $("#lastName").setValue(lastName);
+        $("#genterWrapper").$(byText(genderFemale)).click();
         $("#userNumber").setValue("12345");
         $("#submit").click();
 
