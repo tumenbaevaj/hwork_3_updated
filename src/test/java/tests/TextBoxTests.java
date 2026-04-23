@@ -2,59 +2,42 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.cssClass;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.*;
 import static testdata.TestData.*;
 
 public class TextBoxTests extends TestBase {
 
+
     @Test
     void successfulFillFormTest() {
-        open("/text-box");
-        executeJavaScript("""
-                    document.getElementById('fixedban')?.remove();
-                    document.querySelector('footer')?.remove();
-                """);
-
-        $("#userName").setValue(userName);
-        $("#userEmail").setValue(userEmail);
-        $("#currentAddress").setValue(currentAddress);
-        $("#permanentAddress").setValue(permanentAddress);
-        $("#submit").click();
-
-        $("#output #name").shouldHave(text(userName));
-        $("#output #email").shouldHave(text(userEmail));
-        $("#output #currentAddress").shouldHave(text(currentAddress));
-        $("#output #permanentAddress").shouldHave(text(permanentAddress));
+        textBoxPage.openPage()
+                .removeBanners()
+                .typeUserName(userName)
+                .typeUserEmail(userEmail)
+                .typeCurrentAddress(currentAddress)
+                .typePermanentAddress(permanentAddress)
+                .submitForm()
+                .checkField("name", userName)
+                .checkField("email", userEmail)
+                .checkField("currentAddress", currentAddress)
+                .checkField("permanentAddress", permanentAddress);
     }
 
     @Test
     void successfulMinimalFieldsTest() {
-        open("/text-box");
-        executeJavaScript("""
-                    document.getElementById('fixedban')?.remove();
-                    document.querySelector('footer')?.remove();
-                """);
-
-        $("#userName").setValue(userName);
-        $("#submit").click();
-
-        $("#output #name").shouldHave(text(userName));
+        textBoxPage.openPage()
+                .removeBanners()
+                .typeUserName(userName)
+                .submitForm()
+                .checkField("name", userName);
     }
 
     @Test
     void invalidEmailTest() {
-        open("/text-box");
-        executeJavaScript("""
-                    document.getElementById('fixedban')?.remove();
-                    document.querySelector('footer')?.remove();
-                """);
-
-        $("#userName").setValue(userName);
-        $("#userEmail").setValue("invalid");
-        $("#submit").click();
-
-        $("#userEmail").shouldHave(cssClass("field-error"));
+        textBoxPage.openPage()
+                .removeBanners()
+                .typeUserName(userName)
+                .typeUserEmail(invalidEmail)
+                .submitForm()
+                .checkEmailError();
     }
 }
