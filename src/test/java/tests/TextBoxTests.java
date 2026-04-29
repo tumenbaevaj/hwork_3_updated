@@ -2,41 +2,38 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 
-import static testdata.TestData.*;
-
 public class TextBoxTests extends TestBase {
-
 
     @Test
     void successfulFillFormTest() {
         textBoxPage.openPage()
                 .removeBanners()
-                .typeUserName(userName)
-                .typeUserEmail(userEmail)
-                .typeCurrentAddress(currentAddress)
-                .typePermanentAddress(permanentAddress)
+                .typeUserName(testData.userName)
+                .typeUserEmail(testData.userEmail)
+                .typeCurrentAddress(testData.currentAddress)
+                .typePermanentAddress(testData.permanentAddress)
                 .submitForm()
-                .checkField("name", userName)
-                .checkField("email", userEmail)
-                .checkField("currentAddress", currentAddress)
-                .checkField("permanentAddress", permanentAddress);
+                .checkField("name", testData.userName)
+                .checkField("email", testData.userEmail)
+                .checkField("currentAddress", testData.currentAddress)
+                .checkField("permanentAddress", testData.permanentAddress);
     }
 
     @Test
     void successfulMinimalFieldsTest() {
         textBoxPage.openPage()
                 .removeBanners()
-                .typeUserName(userName)
+                .typeUserName(testData.userName)
                 .submitForm()
-                .checkField("name", userName);
+                .checkField("name", testData.userName);
     }
 
     @Test
     void invalidEmailTest() {
         textBoxPage.openPage()
                 .removeBanners()
-                .typeUserName(userName)
-                .typeUserEmail(invalidEmail)
+                .typeUserName(testData.userName)
+                .typeUserEmail(testData.invalidEmail)
                 .submitForm()
                 .checkEmailError();
     }

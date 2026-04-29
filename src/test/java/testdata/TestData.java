@@ -1,26 +1,50 @@
 package testdata;
 
+import net.datafaker.Faker;
+
 public class TestData {
-    public static String userName = "John Smith";
-    public static String userEmail = "johnsmith@gmail.com";
-    public static String currentAddress = "66 Karalaev street, Bishkek, KG";
-    public static String permanentAddress = "3 Matrosov street, Bishkek, KG";
-    public static String invalidEmail = "invalid";
+    Faker faker = new Faker();
 
-    public static String firstName = "Jibek";
-    public static String lastName = "Tumenbaeva";
-    public static String mobileNumber = "5556676677";
-    public static String email = "jibekt@gmail.com";
-    public static String genderFemale = "Female";
-    public static String yearOfBirth = "1988";
-    public static String monthOfBirth = "June";
-    public static String dayOfBirth = "26";
-    public static String subjectMaths = "Maths";
-    public static String hobbySports = "Sports";
-    public static String uploadImage = "img.jpg";
-    public static String state = "NCR";
-    public static String city = "Delhi";
-    public static String invalidPhone = "12345";
+    public String userName = faker.name().fullName();
+    public String userEmail = faker.internet().emailAddress();
+    public String currentAddress = faker.address().fullAddress();
+    public String permanentAddress = faker.address().fullAddress();
+    public String invalidEmail = faker.options().option(
+            faker.name().firstName(),
+            faker.name().lastName(),
+            "invalid",
+            "test@",
+            "@gmail.com");
 
+    public String firstName = faker.name().firstName();
+    public String lastName = faker.name().lastName();
+    public String mobileNumber = faker.number().digits(10);
+    public String email = faker.internet().emailAddress();
+    public String gender = faker.options().option("Male", "Female", "Other");
+    public String yearOfBirth = String.valueOf(faker.number().numberBetween(1970, 2010));
+    public String monthOfBirth = faker.options().option(
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December");
+    public String dayOfBirth = String.format("%02d", faker.number().numberBetween(1, 29));
+    public String subject = faker.options().option(
+            "Maths", "Accounting", "Arts", "Social Studies", "Biology",
+            "Physics", "Chemistry", "Computer Science", "Commerce", "Economics",
+            "Civics", "Hindi", "English", "History");
+    public String hobby = faker.options().option("Sports", "Reading", "Music");
+    public String uploadImage = faker.options().option("img.jpg", "photo.png", "test.jpeg");
+    public String state = faker.options().option(
+            "NCR", "Uttar Pradesh", "Haryana", "Rajasthan");
+    public String city = selectCity(state);
 
+    public String selectCity(String state) {
+        return switch (state) {
+            case "NCR" -> faker.options().option("Delhi", "Gurgaon", "Noida");
+            case "Uttar Pradesh" -> faker.options().option("Agra", "Lucknow", "Merrut");
+            case "Haryana" -> faker.options().option("Karnal", "Panipat");
+            case "Rajasthan" -> faker.options().option("Jaipur", "Jaiselmer");
+            default -> null;
+        };
+    }
+
+    public String invalidPhone = faker.number().digits(faker.options().option(5, 7, 9));
 }

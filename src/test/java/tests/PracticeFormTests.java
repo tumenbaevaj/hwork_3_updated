@@ -2,52 +2,50 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 
-import static testdata.TestData.*;
-
 public class PracticeFormTests extends TestBase {
 
     @Test
     void successfulFullFormTest() {
         practiceFormPage.openPage()
                 .removeBanners()
-                .typeFirstName(firstName)
-                .typeLastName(lastName)
-                .typeEmail(email)
-                .setGender(genderFemale)
-                .typeMobileNumber(mobileNumber)
-                .setDateOfBirth(dayOfBirth, monthOfBirth, yearOfBirth)
-                .setSubject(subjectMaths)
-                .setHobby(hobbySports)
-                .uploadPicture(uploadImage)
-                .typeCurrentAddress(currentAddress)
-                .setStateAndCity(state, city)
+                .typeFirstName(testData.firstName)
+                .typeLastName(testData.lastName)
+                .typeEmail(testData.email)
+                .setGender(testData.gender)
+                .typeMobileNumber(testData.mobileNumber)
+                .setDateOfBirth(testData.dayOfBirth, testData.monthOfBirth, testData.yearOfBirth)
+                .setSubject(testData.subject)
+                .setHobby(testData.hobby)
+                .uploadPicture(testData.uploadImage)
+                .typeCurrentAddress(testData.currentAddress)
+                .setStateAndCity(testData.state, testData.city)
                 .submitForm()
                 .checkFormSubmitted()
-                .checkResult("Student Name", firstName + " " + lastName)
-                .checkResult("Student Email", email)
-                .checkResult("Gender", genderFemale)
-                .checkResult("Mobile", mobileNumber)
-                .checkResult("Date of Birth", dayOfBirth + " " + monthOfBirth + "," + yearOfBirth)
-                .checkResult("Subjects", subjectMaths)
-                .checkResult("Hobbies", hobbySports)
-                .checkResult("Picture", uploadImage)
-                .checkResult("Address", currentAddress)
-                .checkResult("State and City", state + " " + city);
+                .checkResult("Student Name", testData.firstName + " " + testData.lastName)
+                .checkResult("Student Email", testData.email)
+                .checkResult("Gender", testData.gender)
+                .checkResult("Mobile", testData.mobileNumber)
+                .checkResult("Date of Birth", testData.dayOfBirth + " " + testData.monthOfBirth + "," + testData.yearOfBirth)
+                .checkResult("Subjects", testData.subject)
+                .checkResult("Hobbies", testData.hobby)
+                .checkResult("Picture", testData.uploadImage)
+                .checkResult("Address", testData.currentAddress)
+                .checkResult("State and City", testData.state + " " + testData.city);
     }
 
     @Test
     void successfulRequiredFieldsTest() {
         practiceFormPage.openPage()
                 .removeBanners()
-                .typeFirstName(firstName)
-                .typeLastName(lastName)
-                .setGender(genderFemale)
-                .typeMobileNumber(mobileNumber)
+                .typeFirstName(testData.firstName)
+                .typeLastName(testData.lastName)
+                .setGender(testData.gender)
+                .typeMobileNumber(testData.mobileNumber)
                 .submitForm()
                 .checkFormSubmitted()
-                .checkResult("Student Name", firstName + " " + lastName)
-                .checkResult("Gender", genderFemale)
-                .checkResult("Mobile", mobileNumber);
+                .checkResult("Student Name", testData.firstName + " " + testData.lastName)
+                .checkResult("Gender", testData.gender)
+                .checkResult("Mobile", testData.mobileNumber);
     }
 
     @Test
@@ -62,9 +60,9 @@ public class PracticeFormTests extends TestBase {
     void emptyFirstNameTest() {
         practiceFormPage.openPage()
                 .removeBanners()
-                .typeLastName(lastName)
-                .setGender(genderFemale)
-                .typeMobileNumber(mobileNumber)
+                .typeLastName(testData.lastName)
+                .setGender(testData.gender)
+                .typeMobileNumber(testData.mobileNumber)
                 .submitForm()
                 .checkFormNotSubmitted();
     }
@@ -73,10 +71,10 @@ public class PracticeFormTests extends TestBase {
     void invalidPhoneTest() {
         practiceFormPage.openPage()
                 .removeBanners()
-                .typeFirstName(firstName)
-                .typeLastName(lastName)
-                .setGender(genderFemale)
-                .typeMobileNumber(invalidPhone)
+                .typeFirstName(testData.firstName)
+                .typeLastName(testData.lastName)
+                .setGender(testData.gender)
+                .typeMobileNumber(testData.invalidPhone)
                 .submitForm()
                 .checkFormNotSubmitted();
     }
