@@ -17,10 +17,16 @@ public class TestBase {
 
     @BeforeAll
     static void setupSelenideEnv() {
-        Configuration.browser = "chrome";
+        /*Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
-        Configuration.pageLoadStrategy = "eager";
+        Configuration.pageLoadStrategy = "eager";*/
+        Configuration.baseUrl = "https://demoqa.com";
+        Configuration.browserSize = "1920x1080";
+//      Configuration.browser = "chrome";
+//      Configuration.browserVersion = "128.0";
+//      Configuration.browserVersion = "130.0";
+        //Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
     }
 
     @BeforeEach

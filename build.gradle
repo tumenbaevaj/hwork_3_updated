@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.12.0'
 }
 
 group = 'com.gmail.tumenbaevaj'
@@ -9,12 +10,32 @@ repositories {
     mavenCentral()
 }
 
+def selenideVersion = "7.14.0",
+    allureVersion = "2.32.0",
+    slf4jVersion = "2.0.17"
+
+allure {
+    report {
+        version.set(allureVersion)
+    }
+    adapter { // отвечает за появление папочки build/allure-results
+        aspectjWeaver.set(true) //обработка аннотации @Step
+        frameworks {
+            junit5 { //название фреймворка
+                adapterVersion.set(allureVersion) //версия интеграции фреймворка и Allure
+            }
+        }
+    }
+}
+
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation(
-            "com.codeborne:selenide:7.14.0",
+            "com.codeborne:selenide:$selenideVersion",
             'net.datafaker:datafaker:2.5.4',
-            'org.junit.jupiter:junit-jupiter')
+            'org.junit.jupiter:junit-jupiter',
+            "io.qameta.allure:allure-selenide:$allureVersion",
+            "org.slf4j:slf4j-simple:$slf4jVersion")
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
