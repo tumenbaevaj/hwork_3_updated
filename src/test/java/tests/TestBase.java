@@ -1,6 +1,7 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import helpers.Attachments;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,10 +18,6 @@ public class TestBase {
 
     @BeforeAll
     static void setupSelenideEnv() {
-        /*Configuration.browser = "chrome";
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.pageLoadStrategy = "eager";*/
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
 //      Configuration.browser = "chrome";
@@ -35,7 +32,11 @@ public class TestBase {
     }
 
     @AfterEach
-    void closeBrowserAfterTest() {
+    void addAttachments() {
+        Attachments.screenshotAs("Last screenshot");
+        Attachments.pageSource();
+        Attachments.browserConsoleLogs();
+        Attachments.addVideo();
         closeWebDriver();
     }
 }

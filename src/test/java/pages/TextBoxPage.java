@@ -19,7 +19,7 @@ public class TextBoxPage {
 
 
     //Actions
-    @Step("Open the text box page")
+    @Step("Open page /text-box")
     public TextBoxPage openPage() {
         open("/text-box");
 
@@ -64,21 +64,21 @@ public class TextBoxPage {
         return this;
     }
 
-    @Step("Submit the text box form")
+    @Step("Submit the form")
     public TextBoxPage submitForm() {
         submitButton.click();
 
         return this;
     }
 
-    @Step("Check field {key} has value: {value}")
-    public TextBoxPage checkField(String key, String value) {
+    @Step("Verify {fieldName} has/have value: {value}")
+    public TextBoxPage checkField(String key, String fieldName, String value) {
         outputResults.$(byId(key)).shouldHave(text(value));
 
         return this;
     }
 
-    @Step("Check that email validation error is displayed")
+    @Step("Verify email validation error is displayed")
     public TextBoxPage checkEmailError() {
         userEmailInput.shouldHave(cssClass("field-error"));
 

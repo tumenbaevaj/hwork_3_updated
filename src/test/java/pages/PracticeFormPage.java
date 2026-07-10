@@ -29,7 +29,7 @@ public class PracticeFormPage {
     private final SelenideElement modalDialog = $(".modal-dialog");
     private final SelenideElement modalTitle = $("#example-modal-sizes-title-lg");
 
-    @Step("Open the registration form page")
+    @Step("Open page /automation-practice-form")
     public PracticeFormPage openPage() {
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
@@ -134,7 +134,7 @@ public class PracticeFormPage {
         return this;
     }
 
-    @Step("Set state {state} and city {city}")
+    @Step("Set {state} and {city} as state and city (consequently)")
     public PracticeFormPage setStateAndCity(String state, String city) {
         setState(state);
         setCity(city);
@@ -142,21 +142,21 @@ public class PracticeFormPage {
         return this;
     }
 
-    @Step("Submit the registration form")
+    @Step("Submit the form")
     public PracticeFormPage submitForm() {
         submitButton.click();
 
         return this;
     }
 
-    @Step("Check result: {key} = {value}")
+    @Step("Verify {key} has/have value: {value}")
     public PracticeFormPage checkResult(String key, String value) {
         formResults.checkResult(key, value);
 
         return this;
     }
 
-    @Step("Check that the registration form was submitted successfully")
+    @Step("Verify the form is submitted successfully")
     public PracticeFormPage checkFormSubmitted() {
         modalDialog.shouldHave(appear);
         modalTitle.shouldHave(text("Thanks for submitting the form"));
@@ -164,7 +164,7 @@ public class PracticeFormPage {
         return this;
     }
 
-    @Step("Check that the registration form was not submitted")
+    @Step("Verify the form is not submitted")
     public PracticeFormPage checkFormNotSubmitted() {
         modalDialog.shouldNot(exist);
 
