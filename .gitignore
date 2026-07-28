@@ -8,3 +8,5 @@ build/
 *.ipr
 .gradle
 *.log
+notifications/config.json
+notifications/draft.txt
